@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Dish: Identifiable, Codable{
+struct Dish: Codable{
     let idMeal: Int
     let strMeal : String
     let strCategory: String
