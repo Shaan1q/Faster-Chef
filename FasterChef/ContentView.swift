@@ -12,12 +12,15 @@ struct ContentView: View {
         TabView{
             Tab ("Search", systemImage: "house"){
                  SearchView()
+                    .applyBrandBackground()
                  }
             Tab ("Favorites", systemImage: "star"){
                 FavoritesView()
+                    .applyBrandBackground()
             }
             Tab ("Recommendations", systemImage: "cloud.moon"){
                 RecommendationView()
+                    .applyBrandBackground()
             }
         }
     
