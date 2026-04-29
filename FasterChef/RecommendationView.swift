@@ -13,7 +13,20 @@ struct RecommendationView: View {
             Text("Recommendations")
                 .font(.largeTitle)
                 .bold()
-            Spacer()
+    
+        }
+        VStack(spacing: 20) {
+            Button("Give me a recommendation!", systemImage: "star") {
+           
+            }
+            .foregroundStyle(.black)
+            .buttonStyle(.glass)
+            
+            Button("Reset", systemImage: "star") {
+                
+            }
+            .foregroundStyle(.black)
+            .buttonStyle(.glass)
         }
     }
 }
