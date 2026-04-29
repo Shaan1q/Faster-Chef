@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct DataModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct Dish: Identifiable, Codable{
+    let idMeal: Int
+    let strMeal : String
+    let strCategory: String
 }
 
-#Preview {
-    DataModel()
+struct DishDetails: Codable{
+    let strArea : String
+    let strInstructions: String
 }
