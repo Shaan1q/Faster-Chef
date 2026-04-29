@@ -15,6 +15,7 @@ class NetworkClient{
         
         guard let url = URL(string: urlStr) else { return }
 
+        
     }
     
 }
