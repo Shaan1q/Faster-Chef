@@ -1,15 +1,15 @@
 //
-//  HomePage.swift
+//  SampleView.swift
 //  FasterChef
 //
-//  Created by Student on 4/29/26.
+//  Created by Student on 4/30/26.
 //
-
 import SwiftUI
 
-struct HomePage: View {
+struct SampleView: View {
     @State private var isAnimating = false
-        var body: some View {
+    var body: some View {
+        NavigationStack {
             VStack(spacing:10) {
                 VStack() {
                     Text("WELCOME TO")
@@ -32,18 +32,52 @@ struct HomePage: View {
                 .scaleEffect(isAnimating ? 1.0 : 0.1)
                 .rotationEffect(.degrees(isAnimating ? 360 : 0))
                 .opacity(isAnimating ? 1 : 0)
-                
             }
             .onAppear {
                         withAnimation(.interpolatingSpring(stiffness: 50, damping: 8).delay(0.2)) {
                             isAnimating = true
                         }
                     }
-            .applyBrandBackground()
-            
+            Spacer()
+                .frame(height: 32)
+            VStack {
+                NavigationLink(destination: {
+                    DestinationView1(displayText: "SCREEN 1", fontColor: .red)
+                }, label: {
+                    Text("Introduction")
+                })
+                Spacer()
+                    .frame(height: 32)
+                NavigationLink(destination: {
+                    DestinationView2()
+                }, label: {
+                    Label("Skip", systemImage: "bolt.fill")
+                })
+            }
         }
+    }
+}
+
+struct DestinationView1: View {
+    let displayText: String
+    let fontColor: Color
+    var body: some View {
+        VStack {
+            Text(displayText)
+                .foregroundStyle(fontColor)
+                .font(.system(size: 24))
+        }
+    }
+}
+
+struct DestinationView2: View {
+    var body: some View {
+        VStack {
+            Text("Swift UI is amazing")
+        }
+    }
 }
 
 #Preview {
-    HomePage()
+    SampleView()
 }
