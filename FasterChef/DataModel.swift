@@ -11,6 +11,7 @@ struct Dish: Codable{
     let idMeal: Int
     let strMeal : String
     let strCategory: String
+    let strMealThumb: String
 }
 
 struct DishDetails: Codable{
