@@ -10,9 +10,28 @@ import SwiftUI
 struct FavoritesView: View {
     var body: some View {
        VStack{
-           Rectangle()
-               .background(Color.yellow)
-               .frame(width: 500, height: 150)
+
+               ZStack{
+                   Rectangle()
+                   .fill(Color.yellow)
+                    .frame(width: 500, height: 130, alignment: .top)
+                   HStack(spacing: -200){
+                       Circle()
+                           .fill(Color.white)
+                           .stroke(Color.black, lineWidth: 5)
+                           .frame(width: 380, height: 160, alignment: .leading)
+                           .overlay(
+                       Image(systemName: "heart.circle")
+                           .foregroundColor(Color.black)
+                           .font(Font.system(size: 100, weight: .light, design: .default))
+                           .frame(width: 339, height: 40, alignment: .leading)
+                       )
+                       Text("Favourites")
+                           .font(Font.system(size: 40, weight: .bold, design: .rounded))
+                   }
+
+               }
+           Spacer()
        }
         
     }
