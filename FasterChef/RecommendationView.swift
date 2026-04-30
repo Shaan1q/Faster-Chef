@@ -8,28 +8,58 @@
 import SwiftUI
 
 struct RecommendationView: View {
+    @State private var meal: Meal?
     var body: some View {
-        VStack {
-            Text("Recommendations")
-                .font(.largeTitle)
+        VStack{
+            Text ("Recommendations")
+                .font(.title)
                 .bold()
+        }
+            VStack(spacing: 20) {
+                if let meal = meal {
+                    Text(meal.mealName)
+                        .font(.title)
+                        .bold()
+
+                    AsyncImage(url: URL(string: meal.mealImage)) { image in
+                        image.resizable()
+                            .scaledToFit()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    ScrollView {
+                        Text(meal.strInstructions)
+                            .padding()
+                        }
+                }
+
+                Button("🍽️ Give me a recommendation! 🍽️") {
+                    fetchMeal()
+                }
+                .foregroundStyle(.black)
+                .buttonStyle(.glass)
+                .padding()
+            }
+            .padding()
+        }
+    func fetchMeal() {
+         
+      }
+  }
+
+
     
-        }
-        VStack(spacing: 20) {
-            Button("Give me a recommendation!", systemImage: "star") {
-           
-            }
-            .foregroundStyle(.black)
-            .buttonStyle(.glass)
-            
-            Button("Reset", systemImage: "star") {
-                
-            }
-            .foregroundStyle(.black)
-            .buttonStyle(.glass)
-        }
-    }
+
+struct MealResponse: Codable {
+    let meals: [Meal]
 }
+
+struct Meal: Codable {
+    let mealName: String
+    let strInstructions: String
+    let mealImage: String
+}
+
 
 #Preview {
     RecommendationView()
