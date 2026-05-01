@@ -8,9 +8,30 @@
 import SwiftUI
 
 struct SearchView: View {
+    @Environment(NetworkClient.self) private var networkClient
+    @State private var selectedDish: Dish?
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color(.lightGray)
+                .ignoresSafeArea()
+            ScrollView(.vertical) {
+                LazyVStack {
+                    ForEach(networkClient.searchResults) { dish in
+                        DishCard(dish: dish)
+                            .onTapGesture {
+                                selectedDish = dish
+                            }
+                    }
+                }
+            }
+            .sheet(item: $selectedDish) { tappedDish in
+                MovieDetailView(movie: tappedMovie)
+                    .presentationDetents([.medium, .large])
+            }
+        }
     }
+}
 }
 
 #Preview {
