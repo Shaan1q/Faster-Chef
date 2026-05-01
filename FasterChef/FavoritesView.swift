@@ -9,7 +9,30 @@ import SwiftUI
 
 struct FavoritesView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+       VStack{
+               ZStack{
+                   Rectangle()
+                   .fill(Color.niceYellow)
+                    .frame(width: 500, height: 130, alignment: .top)
+                   HStack(spacing: -200){
+                       Circle()
+                           .fill(Color.white)
+                           .stroke(Color.black, lineWidth: 3)
+                           .frame(width: 380, height: 160, alignment: .leading)
+                           .overlay(
+                       Image(systemName: "heart.circle")
+                           .foregroundColor(Color.black)
+                           .font(Font.system(size: 100, weight: .light, design: .default))
+                           .frame(width: 339, height: 40, alignment: .leading)
+                       )
+                       Text("Favourites")
+                           .font(Font.system(size: 40, weight: .bold, design: .rounded))
+                   }
+
+               }
+           Spacer()
+       }
+        
     }
 }
 
