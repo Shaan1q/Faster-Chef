@@ -61,11 +61,27 @@ struct SampleView: View {
 struct DestinationView1: View {
     let displayText: String
     let fontColor: Color
+    
+    @State private var isAnimating = false
+
     var body: some View {
-        VStack {
-            Text(displayText)
-                .foregroundStyle(fontColor)
-                .font(.system(size: 24))
+        ZStack {
+            Image("door")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+
+            Image("S")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                .scaleEffect(isAnimating ? 3.0 : 0.1) 
+                .opacity(isAnimating ? 1 : 0)
+        }
+        .onAppear {
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
+                isAnimating = true
+            }
         }
     }
 }
@@ -73,7 +89,7 @@ struct DestinationView1: View {
 struct DestinationView2: View {
     var body: some View {
         VStack {
-            Text("Swift UI is amazing")
+            Text("Page One")
         }
     }
 }
