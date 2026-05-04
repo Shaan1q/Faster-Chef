@@ -58,11 +58,42 @@ struct SampleView: View {
     }
 }
 
+//struct DestinationView1: View {
+//    let displayText: String
+//    let fontColor: Color
+//    
+//    @State private var isAnimating = false
+//
+//    var body: some View {
+//        ZStack {
+//            Image("door")
+//                .resizable()
+//                .scaledToFill()
+//                .ignoresSafeArea()
+//
+//            Image("P1")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 200, height: 200)
+//                .scaleEffect(isAnimating ? 3.0 : 0.1) 
+//                .opacity(isAnimating ? 1 : 0)
+//        }
+//        .onAppear {
+//            withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
+//                isAnimating = true
+//            }
+//        }
+//    }
+//}
+
 struct DestinationView1: View {
     let displayText: String
     let fontColor: Color
-    
-    @State private var isAnimating = false
+    let participants = ["P1", "P2", "P3", "P4"]
+
+    @State private var currentIndex = 0
+    @State private var isVisible = false
+    @State private var offsetX: CGFloat = 0
 
     var body: some View {
         ZStack {
@@ -71,17 +102,44 @@ struct DestinationView1: View {
                 .scaledToFill()
                 .ignoresSafeArea()
 
-            Image("S")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200)
-                .scaleEffect(isAnimating ? 3.0 : 0.1) 
-                .opacity(isAnimating ? 1 : 0)
+            VStack {
+                Image(participants[currentIndex])
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .scaleEffect(isVisible ? 1.0 : 0.1)
+                    .opacity(isVisible ? 1 : 0)
+                    .offset(x: offsetX)
+
+                Text("Participant \(currentIndex + 1)")
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .opacity(isVisible ? 1 : 0)
+            }
         }
         .onAppear {
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
-                isAnimating = true
+            runAnimation()
+        }
+    }
+
+    func runAnimation() {
+        offsetX = 0
+        isVisible = false
+
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
+            isVisible = true
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            withAnimation(.easeIn(duration: 0.5)) {
+                offsetX = UIScreen.main.bounds.width
+                isVisible = false
             }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+            currentIndex = (currentIndex + 1) % participants.count
+            runAnimation()
         }
     }
 }
