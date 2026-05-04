@@ -4,33 +4,47 @@ struct RecommendationView: View {
     @State private var meal: Meal?
 
     var body: some View {
-        VStack {
+        VStack (spacing: 20){
             Text ("Recommendations")
-                .font(.title)
+                .fontDesign(.serif)
+                .font(.largeTitle)
                 .bold()
         
             VStack(spacing: 20) {
                 if let meal = meal {
                     Text(meal.strMeal)
                         .font(.title)
-                        .bold()
+                        .fontDesign(.serif)
+                     
                     
                     AsyncImage(url: URL(string: meal.strMealThumb)) { image in
                         image.resizable()
                             .scaledToFit()
+                            .frame(height: 300)
+                            .cornerRadius(15)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                               .overlay(
+                                   RoundedRectangle(cornerRadius: 25)
+                                       .stroke(Color.white, lineWidth: 4)
+                                   )
+                            .shadow(radius: 8)
+                           
                     } placeholder: {
                         ProgressView()
                     }
                     
                    
                 } else {
-                    Text("Tap the button to for a recommendation! 🍽️")
+                    Text("Tap the button for a recommendation!")
+                        .fontDesign(.serif)
                 }
                 
-                Button("Get Random Meal") {
+                Button("🍽️ Get Meal 🍽️") {
                     fetchMeal()
                 }
                 .padding()
+                .fontDesign(.serif)
+                .buttonStyle(.glass)
             }
             
         }
