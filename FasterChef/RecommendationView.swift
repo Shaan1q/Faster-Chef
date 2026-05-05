@@ -110,11 +110,15 @@ struct MealDetailView: View {
                 .ignoresSafeArea()
             ScrollView {
                 VStack(alignment: .center, spacing: 20) {
-                    
-                    Text(meal.strMeal)
-                        .font(.title)
-                        .bold()
-                        .fontDesign(.serif)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(color1)
+                            .shadow(color: .black, radius: 5, x: 2, y: 2)
+                        Text(meal.strMeal)
+                            .font(.title)
+                            .bold()
+                            .fontDesign(.serif)
+                    }
                     
                     AsyncImage(url: URL(string: meal.strMealThumb)) { image in
                         image.resizable()
