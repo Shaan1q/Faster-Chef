@@ -48,7 +48,7 @@ struct RecommendationView: View {
             }
             
         }
-        .padding()
+     
         .applyBrandBackground()
         
     }
