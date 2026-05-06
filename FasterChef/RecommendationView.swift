@@ -5,79 +5,137 @@ struct RecommendationView: View {
     @State private var showMealDetail = false
     
     var body: some View {
-        VStack (spacing: 20){
+        VStack {
             Text ("Recommendations")
+                .font(.title)
                 .fontDesign(.serif)
-                .font(.largeTitle)
                 .bold()
-        
-            VStack(spacing: 20) {
-                if let meal = meal {
-                    Text(meal.strMeal)
-                        .font(.title)
-                        .fontDesign(.serif)
-                     
-                    
-                    AsyncImage(url: URL(string: meal.strMealThumb)) { image in
-                        image.resizable()
-                            .scaledToFit()
-                            .frame(height: 300)
-                            .cornerRadius(15)
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                               .overlay(
-                                   RoundedRectangle(cornerRadius: 25)
-                                       .stroke(Color.white, lineWidth: 4)
-                                   )
-                            .shadow(radius: 8)
-                            .onTapGesture {
-                                showMealDetail = true
-                            }
-                           
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    
-                   
-                } else {
-                    Text("Tap the button for a recommendation!")
-                        .fontDesign(.serif)
-                }
-                
-                Button("🍽️ Get Meal 🍽️") {
-                    fetchMeal()
-                }
-                .padding()
-                .fontDesign(.serif)
-                .buttonStyle(.glass)
-            }
-            
-        }
-        .padding()
-        .applyBrandBackground()
-        .sheet (isPresented: $showMealDetail){
-            if let meal = meal {
-                MealDetailView(meal: meal)
-            }
-        }
-        
-        
-    }
+            HStack{
+                Image("P1")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black, lineWidth: 4)
+                    )
+                    .clipped()
 
-    func fetchMeal() {
-        guard let url = URL(string: "https://www.themealdb.com/api/json/v1/1/random.php") else { return }
+                Image("P2")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black, lineWidth: 4)
+                    )
+                    .clipped()
 
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let data = data {
-                do {
-                    let decoded = try JSONDecoder().decode(MealResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        self.meal = decoded.meals.first
-                    }
-                } catch {
-                    print("Decoding error:", error)
-                }
+
             }
-        }.resume()
+            HStack{
+                Image("P3")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black, lineWidth: 4)
+                    )
+                    .clipped()
+                Image("P4")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black, lineWidth: 4)
+                    )
+                    .clipped()
+
+                    .padding()
+                    .applyBrandBackground()
+            }
+        }
+        
+        
+//        VStack (spacing: 20){
+//            Text ("Recommendations")
+//                .fontDesign(.serif)
+//                .font(.largeTitle)
+//                .bold()
+//        
+//            VStack(spacing: 20) {
+//                if let meal = meal {
+//                    Text(meal.strMeal)
+//                        .font(.title)
+//                        .fontDesign(.serif)
+//                     
+//                    
+//                    AsyncImage(url: URL(string: meal.strMealThumb)) { image in
+//                        image.resizable()
+//                            .scaledToFit()
+//                            .frame(height: 300)
+//                            .cornerRadius(15)
+//                            .clipShape(RoundedRectangle(cornerRadius: 15))
+//                               .overlay(
+//                                   RoundedRectangle(cornerRadius: 25)
+//                                       .stroke(Color.white, lineWidth: 4)
+//                                   )
+//                            .shadow(radius: 8)
+//                            .onTapGesture {
+//                                showMealDetail = true
+//                            }
+//                           
+//                    } placeholder: {
+//                        ProgressView()
+//                    }
+//                    
+//                   
+//                } else {
+//                    Text("Tap the button for a recommendation!")
+//                        .fontDesign(.serif)
+//                }
+//                
+//                Button("🍽️ Get Meal 🍽️") {
+//                    fetchMeal()
+//                }
+//                .padding()
+//                .fontDesign(.serif)
+//                .buttonStyle(.glass)
+//            }
+//            
+//        }
+//        .padding()
+//        .applyBrandBackground()
+//        .sheet (isPresented: $showMealDetail){
+//            if let meal = meal {
+//                MealDetailView(meal: meal)
+//            }
+//        }
+//        
+//        
+//    }
+//
+//    func fetchMeal() {
+//        guard let url = URL(string: "https://www.themealdb.com/api/json/v1/1/random.php") else { return }
+//
+//        URLSession.shared.dataTask(with: url) { data, _, error in
+//            if let data = data {
+//                do {
+//                    let decoded = try JSONDecoder().decode(MealResponse.self, from: data)
+//                    DispatchQueue.main.async {
+//                        self.meal = decoded.meals.first
+//                    }
+//                } catch {
+//                    print("Decoding error:", error)
+//                }
+//            }
+//        }.resume()
     }
 }
 
@@ -151,8 +209,6 @@ struct MealDetailView: View {
                             .padding()
                     }
                  
-                
-                    
                     
                 }
                 .padding()
