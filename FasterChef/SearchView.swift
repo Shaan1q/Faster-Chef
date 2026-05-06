@@ -26,14 +26,14 @@ struct SearchView: View {
                 }
             }
             .sheet(item: $selectedDish) { tappedDish in
-                MovieDetailView(movie: tappedMovie)
+                DishDetailView(selectedDish: tappedDish)
                     .presentationDetents([.medium, .large])
             }
         }
     }
 }
-}
+
 
 #Preview {
-    SearchView()
+    SearchView().environment(NetworkClient())
 }

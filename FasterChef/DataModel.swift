@@ -8,17 +8,11 @@
 import SwiftUI
 
 struct Dish: Identifiable, Codable {
-    let id: Int
+    let id = UUID()
+    let idMeal : Int
     let strMeal : String
     let strCategory: String
     let strMealThumb: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "idMeal"
-        case strMeal
-        case strCategory
-        case strMealThumb
-    }
 }
 
 struct DishDetails: Codable{

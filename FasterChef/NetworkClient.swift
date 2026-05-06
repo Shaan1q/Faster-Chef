@@ -34,7 +34,7 @@ class NetworkClient{
     }
     
     func getDishDetails(id: Int) async {
-        let url = URL(string: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(idMe)")
+        let url = URL(string: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(id)")
         
         guard let urlUnwrapped = url else {
             return
