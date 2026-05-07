@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(NetworkClient.self) private var networkClient
+
     var body: some View {
         TabView{
             Tab ("Search", systemImage: "house"){
@@ -28,5 +30,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView().environment(NetworkClient())
 }

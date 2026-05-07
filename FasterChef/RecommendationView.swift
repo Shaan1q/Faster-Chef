@@ -5,7 +5,26 @@ struct RecommendationView: View {
     @State private var showMealDetail = false
     
     var body: some View {
-        VStack (spacing: 20 ){
+        VStack (){
+            ZStack{
+                Rectangle()
+                    .fill(Color.searchBar)
+                    .frame(width: 500, height: 130, alignment: .top)
+                HStack(spacing: -210){
+                    Circle()
+                        .fill(Color.white)
+                        .stroke(Color.black, lineWidth: 3)
+                        .frame(width: 380, height: 160, alignment: .leading)
+                        .overlay(
+                            Image(systemName: "magnifyingglass.circle")
+                                .foregroundColor(Color.black)
+                                .font(Font.system(size: 100, weight: .light, design: .default))
+                                .frame(width: 339, height: 40, alignment: .leading)
+                        )
+                    Text("Recommendations")
+                        .font(Font.system(size: 25, weight: .bold, design: .rounded))
+                }
+            }
             Text ("Recommendations")
                 .font(.largeTitle)
                 .fontDesign(.serif)
@@ -76,10 +95,6 @@ struct RecommendationView: View {
                         fetchMeal()
                         showMealDetail = true
                         }
-                
-                
-                
-                
             }
         }
         .padding()
