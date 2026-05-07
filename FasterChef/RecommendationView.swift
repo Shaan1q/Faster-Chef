@@ -5,12 +5,17 @@ struct RecommendationView: View {
     @State private var showMealDetail = false
     
     var body: some View {
-        VStack {
+        VStack (spacing: 20 ){
             Text ("Recommendations")
-                .font(.title)
+                .font(.largeTitle)
                 .fontDesign(.serif)
                 .bold()
-            HStack{
+                .padding(.bottom)
+            Text ("🍽️ Click a chef for a meal! 🍽️")
+                .font(.title3)
+                .fontDesign(.serif)
+                .padding(.bottom)
+            HStack (spacing: 20 ){
                 Image("P1")
                     .resizable()
                     .scaledToFit()
@@ -18,10 +23,15 @@ struct RecommendationView: View {
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 4)
+                            .stroke(Color.black, lineWidth: 3)
                     )
-                    .clipped()
-
+                    .onTapGesture {
+                        fetchMeal()
+                        showMealDetail = true
+                        }
+                              
+                 
+                
                 Image("P2")
                     .resizable()
                     .scaledToFill()
@@ -29,13 +39,17 @@ struct RecommendationView: View {
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 4)
+                            .stroke(Color.black, lineWidth: 3)
                     )
-                    .clipped()
-
-
+                    .onTapGesture {
+                        fetchMeal()
+                        showMealDetail = true
+                        }
+             
+                
+                
             }
-            HStack{
+            HStack (spacing: 20 ){
                 Image("P3")
                     .resizable()
                     .scaledToFill()
@@ -43,9 +57,12 @@ struct RecommendationView: View {
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 4)
+                            .stroke(Color.black, lineWidth: 3)
                     )
-                    .clipped()
+                    .onTapGesture {
+                        fetchMeal()
+                        showMealDetail = true
+                        }
                 Image("P4")
                     .resizable()
                     .scaledToFill()
@@ -53,14 +70,45 @@ struct RecommendationView: View {
                     .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 4)
+                            .stroke(Color.black, lineWidth: 3)
                     )
-                    .clipped()
-
-                    .padding()
-                    .applyBrandBackground()
+                    .onTapGesture {
+                        fetchMeal()
+                        showMealDetail = true
+                        }
+                
+                
+                
+                
             }
         }
+        .padding()
+        .applyBrandBackground()
+        .sheet (isPresented: $showMealDetail){
+                 if let meal = meal {
+                     MealDetailView(meal: meal)
+                 }
+             }
+ 
+    }
+        func fetchMeal() {
+            guard let url = URL(string: "https://www.themealdb.com/api/json/v1/1/random.php") else { return }
+    
+            URLSession.shared.dataTask(with: url) { data, _, error in
+                if let data = data {
+                    do {
+                        let decoded = try JSONDecoder().decode(MealResponse.self, from: data)
+                        DispatchQueue.main.async {
+                            self.meal = decoded.meals.first
+                        }
+                    } catch {
+                        print("Decoding error:", error)
+                    }
+                }
+            }.resume()
+        }
+    
+}
         
         
 //        VStack (spacing: 20){
@@ -136,8 +184,8 @@ struct RecommendationView: View {
 //                }
 //            }
 //        }.resume()
-    }
-}
+//    }
+//}
 
 
 
