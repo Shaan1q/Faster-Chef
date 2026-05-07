@@ -89,36 +89,61 @@ struct SampleView: View {
 struct DestinationView1: View {
     let displayText: String
     let fontColor: Color
+
     let participants = ["P1", "P2", "P3", "P4"]
+    let participantsNames = ["Shanzay", "Myrna", "Laurie", "Kayla"]
 
     @State private var currentIndex = 0
     @State private var isVisible = false
     @State private var offsetX: CGFloat = 0
+    @State private var showChef = false
+    @State private var goToContentView = false
 
     var body: some View {
-        ZStack {
-            Image("door")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-
-            VStack {
-                Image(participants[currentIndex])
+        NavigationStack {
+            ZStack {
+                Image("door")
                     .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .scaleEffect(isVisible ? 1.0 : 0.1)
-                    .opacity(isVisible ? 1 : 0)
-                    .offset(x: offsetX)
+                    .scaledToFill()
+                    .ignoresSafeArea()
 
-                Text("Participant \(currentIndex + 1)")
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .opacity(isVisible ? 1 : 0)
+                if showChef {
+                    VStack {
+                        Spacer()
+
+                        Text("We are the FasterChefs!!!")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+
+                        Image("chefs")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 600, height: 600)
+                            .transition(.scale.combined(with: .opacity))
+                    }
+                } else {
+                    VStack {
+                        Image(participants[currentIndex])
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 500, height: 500)
+                            .scaleEffect(isVisible ? 1.0 : 0.1)
+                            .opacity(isVisible ? 1 : 0)
+                            .offset(x: offsetX)
+
+                        Text(participantsNames[currentIndex])
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                            .opacity(isVisible ? 1 : 0)
+                    }
+                }
             }
-        }
-        .onAppear {
-            runAnimation()
+            .onAppear {
+                runAnimation()
+            }
+            .navigationDestination(isPresented: $goToContentView) {
+                ContentView()
+            }
         }
     }
 
@@ -138,8 +163,18 @@ struct DestinationView1: View {
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
-            currentIndex = (currentIndex + 1) % participants.count
-            runAnimation()
+            if currentIndex < participants.count - 1 {
+                currentIndex += 1
+                runAnimation()
+            } else {
+                withAnimation(.spring()) {
+                    showChef = true
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    goToContentView = true
+                }
+            }
         }
     }
 }
@@ -147,7 +182,7 @@ struct DestinationView1: View {
 struct DestinationView2: View {
     var body: some View {
         VStack {
-            Text("Page One")
+            ContentView()
         }
     }
 }
