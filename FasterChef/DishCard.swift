@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DishCard: View {
+struct DishCard : View {
     var dish: Dish
     
     var body: some View{
@@ -25,16 +25,16 @@ struct DishCard: View {
                     .foregroundStyle(.white)
                     .bold()
                     .font(.headline)
-                        let fixedImgURL = URL(string: dish.strMealThumb.replacingOccurrences(of: "\\", with: ""))
-                        AsyncImage(url: fixedImgURL) { receivedImage in
-                            receivedImage
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                              
-                        } placeholder: {
-                            ProgressView()
-                        }
+                    let fixedImgURL = URL(string: dish.strMealThumb.replacingOccurrences(of: "\\", with: ""))
+                    AsyncImage(url: fixedImgURL) { receivedImage in
+                        receivedImage
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                        
+                    } placeholder: {
+                        ProgressView()
+                    }
                     Spacer()
                 }
             }

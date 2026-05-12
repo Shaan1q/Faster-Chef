@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct Dish: Codable{
-    let idMeal: Int
+struct Dish: Identifiable, Codable {
+    let id = UUID()
+    let idMeal : Int
     let strMeal : String
     let strCategory: String
     let strMealThumb: String
@@ -17,4 +18,8 @@ struct Dish: Codable{
 struct DishDetails: Codable{
     let strArea : String
     let strInstructions: String
+}
+
+struct DishResponse: Codable{
+    var meals: [Dish]
 }
