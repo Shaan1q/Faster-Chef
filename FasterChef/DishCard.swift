@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DishCard : View {
     var dish: Dish
-    
+    @State var favourite: Bool
     var body: some View{
         RoundedRectangle(cornerRadius: 40)
             .foregroundStyle(Color("CardBgColor"))
@@ -21,7 +21,13 @@ struct DishCard : View {
                     VStack{
                         Text("Name: \(dish.strMeal)")
                         Text("Category: \(dish.strCategory)")
+                        Image(systemName: favourite ? "heart.fill" : "heart")
+                            .font(.title)
+                            .onTapGesture {
+                                favourite = !favourite
+                            }
                     }
+                       
                     .foregroundStyle(.white)
                     .bold()
                     .font(.headline)
@@ -43,5 +49,5 @@ struct DishCard : View {
 }
 
 #Preview {
-    DishCard(dish: Dish(idMeal: 1235, strMeal: "Spicy Arrabiata Penne", strCategory: "Vegetarian", strMealThumb: "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"))
+    DishCard(dish: Dish(idMeal: 1235, strMeal: "Spicy Arrabiata Penne", strCategory: "Vegetarian", strMealThumb: "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"), favourite: true)
 }
