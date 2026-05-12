@@ -76,10 +76,6 @@ struct RecommendationView: View {
                         fetchMeal()
                         showMealDetail = true
                         }
-                
-                
-                
-                
             }
         }
         .padding()
