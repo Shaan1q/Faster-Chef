@@ -21,18 +21,17 @@ struct RecommendationView: View {
                                 .font(Font.system(size: 100, weight: .light, design: .default))
                                 .frame(width: 339, height: 40, alignment: .leading)
                         )
+                   
                     Text("Recommendations")
                         .font(Font.system(size: 25, weight: .bold, design: .rounded))
                 }
+                
             }
-            Text ("Recommendations")
-                .font(.largeTitle)
-                .fontDesign(.serif)
-                .bold()
-                .padding(.bottom)
+          
             Text ("🍽️ Click a chef for a meal! 🍽️")
                 .font(.title3)
                 .fontDesign(.serif)
+                .padding(.top,40)
                 .padding(.bottom)
             HStack (spacing: 20 ){
                 Image("P1")
@@ -64,8 +63,6 @@ struct RecommendationView: View {
                         fetchMeal()
                         showMealDetail = true
                         }
-             
-                
                 
             }
             HStack (spacing: 20 ){
@@ -96,8 +93,9 @@ struct RecommendationView: View {
                         showMealDetail = true
                         }
             }
+                Spacer()
         }
-        .padding()
+        .padding(.horizontal)
         .applyBrandBackground()
         .sheet (isPresented: $showMealDetail){
                  if let meal = meal {
