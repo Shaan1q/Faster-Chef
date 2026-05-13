@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomePage: View {
+    @Environment(NetworkClient.self) private var networkClient
     @State private var isAnimating = false
 
     var body: some View {
@@ -64,5 +65,5 @@ struct HomePage: View {
 }
 
 #Preview {
-    HomePage()
+    HomePage().environment(NetworkClient())
 }
