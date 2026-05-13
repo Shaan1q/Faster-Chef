@@ -29,10 +29,10 @@ struct RecommendationView: View {
             }
           
             Text ("🍽️ Click a chef for a meal! 🍽️")
-                .font(.title3)
+                .font(.title2)
                 .fontDesign(.serif)
-                .padding(.top,40)
-                .padding(.bottom)
+                .padding(.top,20)
+                .padding(.bottom, 20)
             HStack (spacing: 20 ){
                 Image("P1")
                     .resizable()
@@ -65,6 +65,7 @@ struct RecommendationView: View {
                         }
                 
             }
+            .padding(.bottom, 20)
             HStack (spacing: 20 ){
                 Image("P3")
                     .resizable()
