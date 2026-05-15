@@ -9,9 +9,11 @@ import SwiftUI
 
 struct SearchView: View {
     @Environment(NetworkClient.self) private var networkClient
-    @State private var selectedDish: Dish?
+    @State private var searchText = ""
+    @State private var showSearchResults = false
 
     var body: some View {
+        NavigationStack{
         VStack{
                 ZStack{
                     Rectangle()
@@ -23,19 +25,37 @@ struct SearchView: View {
                             .stroke(Color.black, lineWidth: 3)
                             .frame(width: 380, height: 160, alignment: .leading)
                             .overlay(
-                        Image(systemName: "magnifyingglass.circle")
-                            .foregroundColor(Color.black)
-                            .font(Font.system(size: 100, weight: .light, design: .default))
-                            .frame(width: 339, height: 40, alignment: .leading)
-                        )
-                        Text("  Search    ")
+                                Image(systemName: "magnifyingglass.circle")
+                                    .foregroundColor(Color.black)
+                                    .font(Font.system(size: 100, weight: .light, design: .default))
+                                    .frame(width: 339, height: 40, alignment: .leading)
+                            )
+
+                        Text("Search")
                             .font(Font.system(size: 40, weight: .bold, design: .rounded))
                     }
-
                 }
             Spacer()
         }
-            
+        .navigationDestination(isPresented: $showSearchResults) {
+            SearchResultsView()
+        }
+        .searchable(
+            text: $searchText,
+            prompt: "Search for a dish"
+        )
+        .onSubmit(of: .search) {
+            submitSearch()
+        }
+        
+    }
+    }
+    private func submitSearch() {
+        Task {
+            await networkClient.getDishFromName(name: searchText)
+            showSearchResults = true
+            searchText = ""
+        }
     }
 }
 
