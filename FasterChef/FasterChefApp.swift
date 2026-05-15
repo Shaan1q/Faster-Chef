@@ -9,10 +9,12 @@ import SwiftUI
 
 @main
 struct FasterChefApp: App {
+    @State private var networkClient = NetworkClient()
+    
     var body: some Scene {
         WindowGroup {
             HomePage()
-                .environment(NetworkClient())
+                .environment(networkClient)
         }
     }
 }
