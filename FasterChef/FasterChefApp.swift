@@ -12,6 +12,8 @@ struct FasterChefApp: App {
     var body: some Scene {
         WindowGroup {
             HomePage()
+                .environment(NetworkClient())
         }
     }
 }
+
