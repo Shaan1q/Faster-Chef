@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    var favourite: favourites
     var body: some View {
        VStack{
                ZStack{
