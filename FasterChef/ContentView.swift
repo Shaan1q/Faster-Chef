@@ -12,17 +12,17 @@ struct ContentView: View {
 
     var body: some View {
         TabView{
-            Tab ("Search", systemImage: "house"){
-                 SearchView()
+            Tab ("Chefs' Picks", systemImage: "house"){
+                RecommendationView()
                     .applyBrandBackground()
-                 }
-            Tab ("Favorites", systemImage: "star"){
+            }
+            Tab ("Favorites", systemImage: "heart"){
                 FavoritesView()
                     .applyBrandBackground()
             }
-            Tab ("Recommendations", systemImage: "cloud.moon"){
-                RecommendationView()
-                    .applyBrandBackground()
+            Tab ("Search", systemImage: "magnifyingglass"){
+                SearchView()
+                   .applyBrandBackground()
             }
         }
     
@@ -31,4 +31,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environment(NetworkClient())
 }

@@ -8,62 +8,59 @@ struct DishDetailView: View {
     
     var body: some View {
         ZStack{
-            Color(red: 1, green: 0.75, blue: 0.8)
+            let color1 = Color(red: 0xf8/255, green: 0xc1/255, blue: 0x1c/255)
+            let color2 = Color(red: 0xde/255, green: 0x6e/255, blue: 0x0c/255)
+            let color3 = Color(red: 0xbc/255, green: 0x3a/255, blue: 0x17/255)
+            LinearGradient(
+                    gradient: Gradient(colors: [color3, color2]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
                 .ignoresSafeArea()
-            ScrollView(.vertical) {
-                VStack(alignment: .center, spacing: 16) {
-                    ScrollView(.vertical) {
-                        VStack(alignment: .center, spacing: 16) {
-                            Text(selectedDish.strMeal)
-                                .multilineTextAlignment(.center)
-                                .font(.system(.largeTitle, design: .monospaced, weight: .heavy))
-                                .shadow(color: .red, radius: 1)
-                                .bold()
-                            
-//                            let fixedImgURL = URL(string: selectedDish.strMealThumb.replacingOccurrences(of: "\\", with: ""))
-//                            AsyncImage(url: fixedImgURL) { receivedImage in
-//                                receivedImage
-//                                    .resizable()
-//                                    .frame(width: 150, height: 150)
-//                                    .clipShape(RoundedRectangle(cornerRadius: 20))
-//                                
-//                            } placeholder: {
-//                                ProgressView()
-//                            }
-//                            
-                            Text(networkClient.selectedDishDetails.strArea)
-                                .multilineTextAlignment(.center)
-                                .font(.system(.title2, design: .monospaced, weight: .medium))
-                                .bold()
-                            
-                            if (networkClient.selectedDishDetails.strInstructions != " ") {
-                                ZStack {
-                                    let darkerBlue = Color(red: 0.322, green: 0.506, blue: 0.749, opacity: 1)
-                                    let lighterBlue = Color(red: 0.518, green: 0.663, blue: 0.851, opacity: 1)
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .foregroundColor(darkerBlue)
-                                        .shadow(color: .black, radius: 5, x: 2, y: 2)
-                                    VStack {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .foregroundColor(lighterBlue)
-                                                .shadow(color: .black, radius: 3, x: 1, y: 1)
-                                            Text("Overview")
-                                                .font(.system(.title2, design: .monospaced, weight: .medium))
-                                                .padding(2)
-                                        }
-                                        .padding(.bottom, 8)
-                                        Text(networkClient.selectedDishDetails.strInstructions)
-                                            .font(.system(.body, design: .monospaced, weight: .light))
-                                            .layoutPriority(1) 
-                                    }
-                                    .padding()
-                                }
-                                .frame(maxWidth: 340)
-                            }
-                        }
+            ScrollView {
+                VStack(alignment: .center, spacing: 20) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(color1)
+                            .shadow(color: .black, radius: 5, x: 2, y: 2)
+                        Text(selectedDish.strMeal)
+                            .font(.title)
+                            .bold()
+                            .fontDesign(.serif)
+                    }
+                    
+                    AsyncImage(url: URL(string: selectedDish.strMealThumb)) { image in
+                        image.resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                            .cornerRadius(12)
+                            .overlay(
+                            RoundedRectangle(cornerRadius: 25)
+                                .stroke(Color.white, lineWidth: 4)
+                            )
+                    
+                 .shadow(radius: 8)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    
+                    Text("Instructions")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .fontDesign(.serif)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    ZStack {
+                      RoundedRectangle(cornerRadius: 8)
+                            .foregroundColor(color1)
+                            .shadow(color: .black, radius: 5, x: 2, y: 2)
+                        Text(selectedDish.strInstructions)
+                            .font(.body)
+                            .fontWeight(.light)
+                            .fontDesign(.serif)
+                            .padding()
                     }
                 }
+                .padding()
             }
         }
     }
@@ -71,5 +68,5 @@ struct DishDetailView: View {
 
     
 #Preview {
-    DishDetailView(selectedDish: Dish(idMeal: 1235, strMeal: "Spicy Arrabiata Penne", strCategory: "Vegetarian", strMealThumb: "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg")).environment(NetworkClient())
+    DishDetailView(selectedDish: Dish(idMeal: "1235", strMeal: "Spicy Arrabiata Penne", strCategory: "Vegetarian", strMealThumb: "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg", strArea: "Italy", strInstructions: "test instructions test instructions test instructions test instructions test instructions test instructions test instructions")).environment(NetworkClient())
 }

@@ -12,7 +12,7 @@ struct FavoritesView: View {
        VStack{
                ZStack{
                    Rectangle()
-                   .fill(Color.niceYellow)
+                   .fill(Color.favoriteBar)
                     .frame(width: 500, height: 130, alignment: .top)
                    HStack(spacing: -200){
                        Circle()

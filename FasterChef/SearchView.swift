@@ -17,7 +17,7 @@ struct SearchView: View {
                     Rectangle()
                     .fill(Color.searchBar)
                      .frame(width: 500, height: 130, alignment: .top)
-                    HStack(spacing: -200){
+                    HStack(spacing: -190){
                         Circle()
                             .fill(Color.white)
                             .stroke(Color.black, lineWidth: 3)
@@ -28,31 +28,14 @@ struct SearchView: View {
                             .font(Font.system(size: 100, weight: .light, design: .default))
                             .frame(width: 339, height: 40, alignment: .leading)
                         )
-                        Text("   Search    ")
+                        Text("  Search    ")
                             .font(Font.system(size: 40, weight: .bold, design: .rounded))
                     }
 
                 }
             Spacer()
         }
-//        ZStack {
-//            Color(.lightGray)
-//                .ignoresSafeArea()
-//            ScrollView(.vertical) {
-//                LazyVStack {
-//                    ForEach(networkClient.searchResults) { dish in
-//                        DishCard(dish: dish)
-//                            .onTapGesture {
-//                                selectedDish = dish
-//                            }
-//                    }
-//                }
-//            }
-//            .sheet(item: $selectedDish) { tappedDish in
-//                DishDetailView(selectedDish: tappedDish)
-//                    .presentationDetents([.medium, .large])
-//            }
-//        }
+            
     }
 }
 
