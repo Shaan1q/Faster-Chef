@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomePage: View {
     @State private var isAnimating = false
-
+    @Environment(NetworkClient.self) private var networkClient
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -64,5 +64,5 @@ struct HomePage: View {
 }
 
 #Preview {
-    HomePage()
+    HomePage().environment(NetworkClient())
 }

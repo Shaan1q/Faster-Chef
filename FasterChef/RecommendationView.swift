@@ -21,19 +21,18 @@ struct RecommendationView: View {
                                 .font(Font.system(size: 100, weight: .light, design: .default))
                                 .frame(width: 339, height: 40, alignment: .leading)
                         )
+                   
                     Text("Recommendations")
                         .font(Font.system(size: 25, weight: .bold, design: .rounded))
                 }
+                
             }
-            Text ("Recommendations")
-                .font(.largeTitle)
-                .fontDesign(.serif)
-                .bold()
-                .padding(.bottom)
+          
             Text ("🍽️ Click a chef for a meal! 🍽️")
-                .font(.title3)
+                .font(.title2)
                 .fontDesign(.serif)
-                .padding(.bottom)
+                .padding(.top,20)
+                .padding(.bottom, 20)
             HStack (spacing: 20 ){
                 Image("P1")
                     .resizable()
@@ -64,10 +63,9 @@ struct RecommendationView: View {
                         fetchMeal()
                         showMealDetail = true
                         }
-             
-                
                 
             }
+            .padding(.bottom, 20)
             HStack (spacing: 20 ){
                 Image("P3")
                     .resizable()
@@ -96,8 +94,9 @@ struct RecommendationView: View {
                         showMealDetail = true
                         }
             }
+                Spacer()
         }
-        .padding()
+        .padding(.horizontal)
         .applyBrandBackground()
         .sheet (isPresented: $showMealDetail){
                  if let meal = meal {
