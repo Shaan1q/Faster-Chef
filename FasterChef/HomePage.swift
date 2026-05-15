@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct HomePage: View {
-    @Environment(NetworkClient.self) private var networkClient
     @State private var isAnimating = false
-
+    @Environment(NetworkClient.self) private var networkClient
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
