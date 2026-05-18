@@ -24,7 +24,7 @@ struct HomePage: View {
                         .font(.system(size: 40))
                         .fontWeight(.bold)
 
-                    Text("(but BTech)")
+                    Text("(but BkTech)")
                         .font(.system(size: 30))
 
                     Image("F")
@@ -32,6 +32,22 @@ struct HomePage: View {
                         .scaledToFit()
                         .frame(width: 200, height: 200)
                         .shadow(radius: 10)
+                        .padding(.bottom, 20)
+                    VStack(spacing: 20) {
+                        NavigationLink {
+                            DestinationView1(displayText: "SCREEN 1", fontColor: .red)
+                        } label: {
+                            Label("Introduction", systemImage: "info.circle")
+                                .foregroundStyle(.white)
+                        }
+
+                        NavigationLink {
+                            DestinationView2()
+                        } label: {
+                            Label("Skip", systemImage: "forward.fill")
+                                .foregroundStyle(.white)
+                        }
+                    }
                 }
                 .foregroundColor(.white)
                 .shadow(radius: 10)
@@ -39,17 +55,7 @@ struct HomePage: View {
                 .rotationEffect(.degrees(isAnimating ? 360 : 0))
                 .opacity(isAnimating ? 1 : 0)
 
-                VStack(spacing: 20) {
-                    NavigationLink("Introduction") {
-                        DestinationView1(displayText: "SCREEN 1", fontColor: .red)
-                    }
-
-                    NavigationLink {
-                        DestinationView2()
-                    } label: {
-                        Label("Skip", systemImage: "bolt.fill")
-                    }
-                }
+                
 
                 Spacer()
             }
