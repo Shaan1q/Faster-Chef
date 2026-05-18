@@ -50,7 +50,6 @@ struct SearchResultsView: View {
 #Preview {
 
     NavigationStack {
-
         SearchResultsView()
             .environment(NetworkClient())
     }

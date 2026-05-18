@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
 
     var body: some View {
         TabView{
@@ -22,7 +21,6 @@ struct ContentView: View {
             }
             Tab ("Search", systemImage: "magnifyingglass"){
                 SearchView()
-                   .applyBrandBackground()
             }
         }
     
