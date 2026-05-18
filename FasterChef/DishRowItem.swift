@@ -23,29 +23,24 @@ struct DishRowItem: View {
 
                 ProgressView()
             }
-            .frame(width: 127, height: 190)
+            .frame(width: 175, height: 175)
             .clipped()
             .cornerRadius(15)
 
             .overlay {
 
                 RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.black, lineWidth: 3)
+                    .stroke(Color.favoriteBar, lineWidth: 5)
             }
 
             Text(dish.strMeal)
                 .lineLimit(1)
                 .font(.system(.body, design: .rounded))
                 .fontWeight(.medium)
-                .foregroundStyle(.black)
+                .foregroundStyle(.white)
         }
 
         .frame(width: 160)
-
-        .shadow(color: .black,
-                radius: 5,
-                x: 5,
-                y: 5)
     }
 }
 
