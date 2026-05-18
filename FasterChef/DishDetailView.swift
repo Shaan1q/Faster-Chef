@@ -36,7 +36,7 @@ struct DishDetailView: View {
                             .cornerRadius(12)
                             .overlay(
                             RoundedRectangle(cornerRadius: 25)
-                                .stroke(Color.white, lineWidth: 4)
+                                .stroke(Color.favoriteBar, lineWidth: 4)
                             )
                     
                  .shadow(radius: 8)

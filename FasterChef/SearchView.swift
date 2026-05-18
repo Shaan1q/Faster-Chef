@@ -1,26 +1,21 @@
-//
-//  SearchView.swift
-//  FasterChef
-//
-//  Created by Student on 4/29/26.
-//
-
 import SwiftUI
 
 struct SearchView: View {
     @Environment(NetworkClient.self) private var networkClient
     @State private var searchText = ""
+    @State private var lastSearchedText = "" 
     @State private var showSearchResults = false
     @State private var searched = false
     
     var body: some View {
-        NavigationStack{
-            VStack{
-                ZStack{
+        NavigationStack {
+            VStack {
+              
+                ZStack {
                     Rectangle()
                         .fill(Color.searchBar)
                         .frame(width: 500, height: 130, alignment: .top)
-                    HStack(spacing: -170){
+                    HStack(spacing: -170) {
                         Circle()
                             .fill(Color.white)
                             .stroke(Color.black, lineWidth: 3)
@@ -36,6 +31,7 @@ struct SearchView: View {
                             .font(Font.system(size: 40, weight: .bold, design: .rounded))
                     }
                 }
+                
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
@@ -43,7 +39,6 @@ struct SearchView: View {
                     TextField("Search for a dish", text: $searchText)
                         .submitLabel(.search)
                         .onSubmit {
-                            searched = true
                             submitSearch()
                         }
                 }
@@ -64,31 +59,27 @@ struct SearchView: View {
                             .frame(maxWidth: .infinity)
                         
                     } else if networkClient.searchResults.isEmpty {
-                        
-                        Text("No dishes found")
+                        Text("No results found for \"\(lastSearchedText)\"")
                             .font(.title2)
                             .foregroundStyle(.white)
                             .padding(.top, 50)
                             .frame(maxWidth: .infinity)
                         
                     } else {
-                        
-                        Text("Search Results for \(searchText)")
+                        Text("Search Results for \"\(lastSearchedText)\"")
                             .font(.title2)
                             .foregroundStyle(.white)
-                            .padding(.top, 20)
+                            .padding(.top, 10)
                             .frame(maxWidth: .infinity)
-                        
+    
                         LazyVGrid(
                             columns: [
-                                GridItem(.flexible()),
-                                GridItem(.flexible())
+                                GridItem(.flexible(), spacing: 5),
+                                GridItem(.flexible(), spacing: 5)
                             ],
-                            spacing: 25
+                            spacing: 20
                         ) {
-                            
                             ForEach(networkClient.searchResults) { dish in
-                                
                                 NavigationLink {
                                     DishDetailView(selectedDish: dish)
                                 } label: {
@@ -97,24 +88,27 @@ struct SearchView: View {
                                 .buttonStyle(.plain)
                             }
                         }
-                        .padding()
+                        .padding(.horizontal, 50)
                     }
-                    
                 }
-                
             }
             .applyBrandBackground()
         }
     }
+    
     private func submitSearch() {
+        
+        guard !searchText.isEmpty else { return }
+        
         Task {
+            lastSearchedText = searchText
             await networkClient.getDishFromName(name: searchText)
+            searched = true
             showSearchResults = true
             searchText = ""
         }
     }
 }
-
 
 #Preview {
     SearchView().environment(NetworkClient())
