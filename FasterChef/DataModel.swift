@@ -8,9 +8,7 @@
 import SwiftUI
 internal import Combine
 
-struct Dish: Identifiable, Codable {
-
-    let id = UUID()
+struct Dish: Codable, Identifiable {
 
     let idMeal: String
     let strMeal: String
@@ -19,7 +17,7 @@ struct Dish: Identifiable, Codable {
     let strArea: String
     let strInstructions: String
 
-
+    var id: String { idMeal }
 }
 
 

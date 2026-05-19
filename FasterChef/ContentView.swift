@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(NetworkClient.self) private var networkClient
 
     var body: some View {
         TabView{
@@ -15,7 +16,8 @@ struct ContentView: View {
                 RecommendationView()
                     .applyBrandBackground()
             }
-            Tab ("Favorites", systemImage: "heart"){
+            Tab("Favorites", systemImage: "heart") {
+
                 FavoritesView()
                     .applyBrandBackground()
             }

@@ -4,33 +4,44 @@ struct DishRowItem: View {
 
     let dish: Dish
 
+    @EnvironmentObject var favoritesManager: FavoritesManager
+
+    private var fixedImgURL: URL? {
+        URL(
+            string: dish.strMeal
+                .replacingOccurrences(of: "\\", with: "")
+        )
+    }
+
     var body: some View {
 
         VStack(spacing: 10) {
 
-            let fixedImgURL = URL(
-                string: dish.strMealThumb
-                    .replacingOccurrences(of: "\\", with: "")
-            )
+            ZStack(alignment: .topTrailing) {
 
-            AsyncImage(url: fixedImgURL) { receivedImage in
+                AsyncImage(url: fixedImgURL) { image in
 
-                receivedImage
-                    .resizable()
-                    .scaledToFill()
+                    image
+                        .resizable()
+                        .scaledToFill()
 
-            } placeholder: {
+                } placeholder: {
 
-                ProgressView()
-            }
-            .frame(width: 175, height: 175)
-            .clipped()
-            .cornerRadius(15)
+                    ProgressView()
+                }
+                .frame(width: 160, height: 160)
+                .clipped()
+                .cornerRadius(15)
 
-            .overlay {
-
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.favoriteBar, lineWidth: 5)
+                Image(
+                    systemName:
+                        favoritesManager.isFavorite(dish)
+                        ? "heart.fill"
+                        : "heart"
+                )
+                .padding(8)
+                .foregroundStyle(.red)
+                .font(.title2)
             }
 
             Text(dish.strMeal)
@@ -39,22 +50,10 @@ struct DishRowItem: View {
                 .fontWeight(.medium)
                 .foregroundStyle(.white)
         }
-
         .frame(width: 160)
+        .onTapGesture(count: 2) {
+
+            favoritesManager.toggle(dish)
+        }
     }
-}
-
-#Preview {
-
-    DishRowItem(
-        dish: Dish(
-            idMeal: "52771",
-            strMeal: "Spicy Arrabiata Penne",
-            strCategory: "Vegetarian",
-            strMealThumb:
-                "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
-            strArea: "Italian",
-            strInstructions: "Boil pasta and mix sauce."
-        )
-    )
 }
