@@ -23,7 +23,7 @@ struct FavoritesView: View {
                                 .stroke(Color.black, lineWidth: 3)
                                 .frame(width: 380, height: 160, alignment: .leading)
                                 .overlay(
-                                    Image(systemName: "heart.circle.fill")
+                                    Image(systemName: "heart.circle")
                                         .foregroundColor(Color.black)
                                         .font(Font.system(size: 100, weight: .light, design: .default))
                                         .frame(width: 339, height: 40, alignment: .leading)
