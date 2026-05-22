@@ -24,6 +24,9 @@ struct ContentView: View {
             Tab ("Search", systemImage: "magnifyingglass"){
                 SearchView()
             }
+            Tab("Game Mode", systemImage: "gamecontroller"){
+                GameView()
+            }
         }
     
     }
