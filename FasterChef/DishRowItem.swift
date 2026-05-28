@@ -32,9 +32,7 @@ struct DishRowItem: View {
                 .frame(width: 160, height: 160)
                 .clipped()
                 .cornerRadius(15)
-                .overlay(
-            
-
+                
                 Image(
                     systemName:
                         favoritesManager.isFavorite(dish)
