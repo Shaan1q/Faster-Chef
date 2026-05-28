@@ -43,6 +43,7 @@ struct DishRowItem: View {
                 .foregroundStyle(.red)
                 .font(.title2)
             }
+            
 
             Text(dish.strMeal)
                 .lineLimit(1)
