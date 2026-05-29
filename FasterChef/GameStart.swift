@@ -15,6 +15,10 @@ struct GameStart: View {
 
     @State private var shuffleCount = 0
 
+    @State private var boxChosen = false
+    
+    @State private var selectedBox: Int? = nil
+
     var body: some View {
 
         ZStack {
@@ -22,22 +26,52 @@ struct GameStart: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
+            if boxChosen {
+
+                Text("You Got Beef Wellington!!!")
+                    .font(.system(size: 50, weight: .bold))
+                    .foregroundColor(.black)
+                    .shadow(radius: 10)
+                    .offset(y: -200)
+                    .transition(.opacity)
+            }
 
             ZStack {
 
                 ForEach(0..<3) { index in
 
-                    Image(changed[index] ? "openBox" : "box")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 300, height: 300)
-                        .offset(y: positions[index])
+                    if selectedBox == nil || selectedBox == index {
 
-                        .onTapGesture {
-                            withAnimation(.easeInOut) {
-                                changed[index].toggle()
+                        Image(changed[index] ? "openBox" : "box")
+                            .resizable()
+                            .scaledToFit()
+
+                            .frame(
+                                width: selectedBox == index ? 450 : 300,
+                                height: selectedBox == index ? 450 : 300
+                            )
+
+                            .offset(
+                                y: selectedBox == index
+                                ? 100
+                                : positions[index]
+                            )
+
+                            .animation(.easeInOut(duration: 1.0), value: selectedBox)
+
+                            .onTapGesture {
+
+                                if !boxChosen {
+
+                                    boxChosen = true
+                                    selectedBox = index
+
+                                    withAnimation(.easeInOut) {
+                                        changed[index].toggle()
+                                    }
+                                }
                             }
-                        }
+                    }
                 }
             }
         }

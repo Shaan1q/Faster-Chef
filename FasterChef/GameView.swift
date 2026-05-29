@@ -14,7 +14,6 @@ struct GameView: View {
                 NavigationLink("Chapter 1: The Final Round") {
                     GameStart()
                 }
-                
                 NavigationLink("Chapter 2: Super market Survivor") {
                     MarketView()
                 }
