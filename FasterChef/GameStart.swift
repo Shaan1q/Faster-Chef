@@ -18,6 +18,8 @@ struct GameStart: View {
     @State private var boxChosen = false
     
     @State private var selectedBox: Int? = nil
+    
+    @State private var showIntro = true
 
     var body: some View {
 
@@ -26,57 +28,59 @@ struct GameStart: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-            if boxChosen {
 
-                Text("You Got Beef Wellington!!!")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.black)
-                    .shadow(radius: 10)
-                    .offset(y: -200)
-                    .transition(.opacity)
-            }
+            if showIntro {
+                Image("Intro")
+                    .resizable()
+                    .scaledToFit()
+            } else {
 
-            ZStack {
+                if boxChosen {
+                    Text("You Got Beef Wellington!!!")
+                        .font(.system(size: 50, weight: .bold))
+                        .foregroundColor(.black)
+                        .shadow(radius: 10)
+                        .offset(y: -200)
+                }
 
-                ForEach(0..<3) { index in
+                ZStack {
+                    ForEach(0..<3) { index in
+                        if selectedBox == nil || selectedBox == index {
+                            Image(changed[index] ? "openBox" : "box")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(
+                                    width: selectedBox == index ? 450 : 300,
+                                    height: selectedBox == index ? 450 : 300
+                                )
+                                .offset(
+                                    y: selectedBox == index
+                                    ? 100
+                                    : positions[index]
+                                )
+                                .animation(.easeInOut(duration: 1.0), value: selectedBox)
+                                .onTapGesture {
+                                    if !boxChosen {
+                                        boxChosen = true
+                                        selectedBox = index
 
-                    if selectedBox == nil || selectedBox == index {
-
-                        Image(changed[index] ? "openBox" : "box")
-                            .resizable()
-                            .scaledToFit()
-
-                            .frame(
-                                width: selectedBox == index ? 450 : 300,
-                                height: selectedBox == index ? 450 : 300
-                            )
-
-                            .offset(
-                                y: selectedBox == index
-                                ? 100
-                                : positions[index]
-                            )
-
-                            .animation(.easeInOut(duration: 1.0), value: selectedBox)
-
-                            .onTapGesture {
-
-                                if !boxChosen {
-
-                                    boxChosen = true
-                                    selectedBox = index
-
-                                    withAnimation(.easeInOut) {
-                                        changed[index].toggle()
+                                        withAnimation(.easeInOut) {
+                                            changed[index].toggle()
+                                        }
                                     }
                                 }
-                            }
+                        }
                     }
                 }
             }
         }
         .onAppear {
-            shuffleBoxes()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1000) {
+                withAnimation {
+                    showIntro = false
+                }
+                shuffleBoxes()
+            }
         }
     }
 
