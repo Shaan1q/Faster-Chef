@@ -14,8 +14,15 @@ struct PrepView: View {
     @State private var timer: Timer?
     @State private var shallotX: CGFloat = 0
     @State private var showShallot = true
-
-       let shallotX: CGFloat = 0
+    @State private var showDicedShallot = false
+    @State private var points = 0
+    @State private var currentIngredient = 0
+    let ingredients = [
+        ("Shallot", "DicedShallot"),
+        ("Mushrooms", "DicedMushrooms"),
+        
+    ]
+    @State private var isDiced = false
     
     var body: some View {
         ZStack{
@@ -29,26 +36,22 @@ struct PrepView: View {
                     .fontDesign(.rounded)
                     .padding (.top, 15)
                     .padding (.bottom, 15)
-                Text ("Click when you want to drop the knife and cut the ingredient")
+                Text ("Click when you want to stop the knife and cut the ingredient")
                     .padding (.bottom, 15)
                     .fontDesign(.rounded)
-                Text ("Task: Cut Shallots")
-                Text ("Points: ")
+                Text("Task: Dice \(ingredients[currentIngredient].0)")
+                Text ("Score: \(points)" )
                     .padding (.top, 15)
                     .fontDesign(.rounded)
                 Spacer()
                     .fontDesign(.rounded)
                 
             }
-            Image("Shallot")
+            Image(isDiced
+                  ? ingredients[currentIngredient].1
+                  : ingredients[currentIngredient].0)
                 .resizable()
                 .scaledToFit()
-            if showShallot {
-                Image("DicedShallot")
-                    .resizable()
-                    .scaledToFit()
-                    .offset(x: shallotX)
-            }
             
             Image ("Knife")
                 .resizable()
@@ -66,7 +69,6 @@ struct PrepView: View {
 
     func startKnifeMovement() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
-            
             if movingRight {
                 knifeX += 2
                 
@@ -82,19 +84,35 @@ struct PrepView: View {
             }
         }
     }
-    func stopKnife(){
-    let distance = abs(knifeX - shallotX)
+    
+    func stopKnife() {
+        let distance = abs(knifeX - shallotX)
+
         if distance < 100 {
             timer?.invalidate()
-            withAnimation(.easeIn(duration: 0.3)){
+            points += 5
+
+            withAnimation(.easeIn(duration: 0.3)) {
                 knifeY += 100
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                isDiced = true
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    if currentIngredient < ingredients.count - 1 {
+                        currentIngredient += 1
+                        isDiced = false
+                        knifeX = -150
+                        knifeY = 150
+                        movingRight = true
+                        startKnifeMovement()
                     }
-                } else {
-                    print("Missed!")
                 }
+            }
+
+        }
     }
     
-    //add code to replace shallot with diced shallots
          
                     
                     
