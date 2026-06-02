@@ -19,7 +19,7 @@ struct PrepView: View {
     @State private var currentIngredient = 0
     let ingredients = [
         ("Shallot", "DicedShallot"),
-        ("Mushrooms", "DicedMushrooms"),
+        ("Mushrooms", "DicedMushrooms"),("Onion", "DicedOnions")
         
     ]
     @State private var isDiced = false
@@ -34,14 +34,16 @@ struct PrepView: View {
                     .font(.title)
                     .bold()
                     .fontDesign(.rounded)
-                    .padding (.top, 15)
+                    .padding (.top, 50)
                     .padding (.bottom, 15)
                 Text ("Click when you want to stop the knife and cut the ingredient")
                     .padding (.bottom, 15)
                     .fontDesign(.rounded)
                 Text("Task: Dice \(ingredients[currentIngredient].0)")
+                    .font(.title2)
                 Text ("Score: \(points)" )
                     .padding (.top, 15)
+                    .font(.title2)
                     .fontDesign(.rounded)
                 Spacer()
                     .fontDesign(.rounded)
@@ -52,6 +54,7 @@ struct PrepView: View {
                   : ingredients[currentIngredient].0)
                 .resizable()
                 .scaledToFit()
+                .offset(x: 10, y: -10)
             
             Image ("Knife")
                 .resizable()
@@ -65,6 +68,8 @@ struct PrepView: View {
         .onAppear {
             startKnifeMovement()
         }
+        
+       
     }
 
     func startKnifeMovement() {
