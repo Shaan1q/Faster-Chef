@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PrepView: View {
     @State private var knifeX: CGFloat = -150
-    @State private var knifeY: CGFloat = 150
+    @State private var knifeY: CGFloat = 190
     @State private var movingRight = true
     @State private var timer: Timer?
     @State private var shallotX: CGFloat = 0
@@ -19,30 +19,39 @@ struct PrepView: View {
     @State private var currentIngredient = 0
     let ingredients = [
         ("Shallot", "DicedShallot"),
-        ("Mushrooms", "DicedMushrooms"),("Onion", "DicedOnions")
+        ("Onion", "DicedOnions"),
+        ("Mushrooms", "DicedMushrooms")
         
     ]
     @State private var isDiced = false
     
     var body: some View {
         ZStack{
+            Image ("TableBg")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
             Image ("CuttingBoard")
                 .resizable()
                 .scaledToFit()
+                .padding(.top, 100)
             VStack {
                 Text("PREP YOUR INGREDIENTS")
                     .font(.title)
                     .bold()
                     .fontDesign(.rounded)
-                    .padding (.top, 50)
-                    .padding (.bottom, 15)
+                    .padding (.top, 90)
+                    .padding (.bottom, 1)
                 Text ("Click when you want to stop the knife and cut the ingredient")
-                    .padding (.bottom, 15)
+                    .padding (.bottom, 1)
+                    .font(.title3)
                     .fontDesign(.rounded)
+                    .padding()
                 Text("Task: Dice \(ingredients[currentIngredient].0)")
                     .font(.title2)
+                    .fontWeight(.bold)
                 Text ("Score: \(points)" )
-                    .padding (.top, 15)
+                    .padding (.top, 1)
                     .font(.title2)
                     .fontDesign(.rounded)
                 Spacer()
@@ -54,7 +63,7 @@ struct PrepView: View {
                   : ingredients[currentIngredient].0)
                 .resizable()
                 .scaledToFit()
-                .offset(x: 10, y: -10)
+                .offset(x: 10, y: 20)
             
             Image ("Knife")
                 .resizable()
