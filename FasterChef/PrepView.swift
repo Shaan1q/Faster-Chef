@@ -38,18 +38,30 @@ struct PrepView: View {
             VStack {
                 Text("PREP YOUR INGREDIENTS")
                     .font(.title)
+                    .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.white)
+                                .frame(width: 380, height: 50)
+                        )
                     .bold()
                     .fontDesign(.rounded)
                     .padding (.top, 90)
                     .padding (.bottom, 1)
+               
                 Text ("Click when you want to stop the knife and cut the ingredient")
+                    .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.white)
+                                .frame(width: 388, height: 50)
+                        )
                     .padding (.bottom, 1)
                     .font(.title3)
                     .fontDesign(.rounded)
+                
                     .padding()
-                Text("Task: Dice \(ingredients[currentIngredient].0)")
-                    .font(.title2)
-                    .fontWeight(.bold)
+                    Text("Current Task: Dice \(ingredients[currentIngredient].0)")
+                        .font(.title2)
+                        .fontWeight(.bold)
                 Text ("Score: \(points)" )
                     .padding (.top, 1)
                     .font(.title2)
