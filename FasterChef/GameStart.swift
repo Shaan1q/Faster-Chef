@@ -22,6 +22,8 @@ struct GameStart: View {
     @State private var showIntro = true
     
     @State private var introStep = 0
+    
+    @State private var introImage = "Intro"
 
     let introMessages = [
         "Welcome to Faster Chef where your dreams come true!",
@@ -29,7 +31,10 @@ struct GameStart: View {
         "The winner is going to walk away with the a grand prize of $250,000",
         ", the MasterChef trophy, and the official title of MasterChef.",
         "Our 4 chef judges Laurie, Kayla, Myrna, and Shanzay shall pick the winner tonight!",
-        "Now finally...lets welcome our two contestants!!!"
+        "Now finally...lets welcome our two contestants: Spongebob and user!!!",
+        "I'm ready! I'm ready! I'm ready!",
+        "I'm here to beat spongebob for that 25 grand!!!",
+        "Ok then lets get straight into the boxes!!!"
     ]
 
     var body: some View {
@@ -42,7 +47,7 @@ struct GameStart: View {
 
             if showIntro {
                 ZStack {
-                    Image("Intro")
+                    Image(introImage)
                         .resizable()
                         .scaledToFit()
 
@@ -83,6 +88,13 @@ struct GameStart: View {
                     if introStep < introMessages.count - 1 {
                         withAnimation {
                             introStep += 1
+                        }
+                        if introStep + 2 == introMessages.count - 1 {
+                            introImage = "spongebob"
+                        } else if introStep + 1 == introMessages.count - 1 {
+                            introImage = "user"
+                        } else if introStep == introMessages.count - 1 {
+                            introImage = "Intro"
                         }
                     }
                 }

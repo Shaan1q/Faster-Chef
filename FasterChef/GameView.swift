@@ -26,6 +26,9 @@ struct GameView: View {
                 NavigationLink("Chapter 5:") {
                     PlatingView()
                 }
+                NavigationLink("Chapter 6: The Final Results") {
+                    GameEnd()
+                }
             }
                 .font(.system(size: 35, weight: .bold))
                 .foregroundColor(.black)
