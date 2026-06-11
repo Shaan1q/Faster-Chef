@@ -9,7 +9,9 @@ import SwiftUI
 
 struct GameEnd: View {
     var body: some View {
-        Text("Supermarket")
+        Image("Win")
+            .resizable()
+            .scaledToFit()
     }
 }
 
