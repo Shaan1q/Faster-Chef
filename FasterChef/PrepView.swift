@@ -109,13 +109,13 @@ struct PrepView: View {
     func startKnifeMovement() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
             if movingRight {
-                knifeX += 4
+                knifeX += 6
                 
                 if knifeX >= 150 {
                     movingRight = false
                 }
             } else {
-                knifeX -= 4
+                knifeX -= 6
                 
                 if knifeX <= -150 {
                     movingRight = true
