@@ -9,7 +9,28 @@ import SwiftUI
 
 struct GameView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            VStack(spacing:25) {
+                NavigationLink("Chapter 1: The Final Round") {
+                    GameStart()
+                }
+                NavigationLink("Chapter 2: Super market Survivor") {
+                    MarketView()
+                }
+                NavigationLink("Chapter 3:") {
+                    PrepView()
+                }
+                NavigationLink("Chapter 4:") {
+                    CookView()
+                }
+                NavigationLink("Chapter 5:") {
+                    PlatingView()
+                }
+            }
+                .font(.system(size: 35, weight: .bold))
+                .foregroundColor(.black)
+            
+        }
     }
 }
 
