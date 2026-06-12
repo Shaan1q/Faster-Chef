@@ -20,6 +20,22 @@ struct GameStart: View {
     @State private var selectedBox: Int? = nil
     
     @State private var showIntro = true
+    
+    @State private var introStep = 0
+    
+    @State private var introImage = "Intro"
+
+    let introMessages = [
+        "Welcome to Faster Chef where your dreams come true!",
+        "We are finally at the last round of the challenge.",
+        "The winner is going to walk away with the a grand prize of $250,000",
+        ", the MasterChef trophy, and the official title of MasterChef.",
+        "Our 4 chef judges Laurie, Kayla, Myrna, and Shanzay shall pick the winner tonight!",
+        "Now finally...lets welcome our two contestants: Spongebob and user!!!",
+        "I'm ready! I'm ready! I'm ready!",
+        "I'm here to beat spongebob for that 25 grand!!!",
+        "Ok then lets get straight into the boxes!!!"
+    ]
 
     var body: some View {
 
@@ -30,10 +46,60 @@ struct GameStart: View {
                 .ignoresSafeArea()
 
             if showIntro {
-                Image("Intro")
-                    .resizable()
-                    .scaledToFit()
-            } else {
+                ZStack {
+                    Image(introImage)
+                        .resizable()
+                        .scaledToFit()
+
+                    VStack {
+                        Spacer()
+
+                        Text(introMessages[introStep])
+                            .font(.system(size: 35, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.bottom, 200)
+                    }
+
+                    VStack {
+                        Spacer()
+
+                        HStack {
+                            Spacer()
+
+                            Button("Start") {
+                                withAnimation {
+                                    showIntro = false
+                                }
+                                shuffleBoxes()
+                            }
+                            .font(.headline)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
+                            .padding(.trailing, 30)
+                            .padding(.bottom, 30)
+                        }
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    if introStep < introMessages.count - 1 {
+                        withAnimation {
+                            introStep += 1
+                        }
+                        if introStep + 2 == introMessages.count - 1 {
+                            introImage = "spongebob"
+                        } else if introStep + 1 == introMessages.count - 1 {
+                            introImage = "user"
+                        } else if introStep == introMessages.count - 1 {
+                            introImage = "Intro"
+                        }
+                    }
+                }
+            }
+            else {
 
                 if boxChosen {
                     Text("You Got Beef Wellington!!!")
@@ -72,14 +138,6 @@ struct GameStart: View {
                         }
                     }
                 }
-            }
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1000) {
-                withAnimation {
-                    showIntro = false
-                }
-                shuffleBoxes()
             }
         }
     }
