@@ -16,6 +16,7 @@ struct PrepView: View {
     @State private var showShallot = true
     @State private var showDicedShallot = false
     @State private var points = 0
+    @State private var showEnd = false
     @State private var currentIngredient = 0
     let ingredients = [
         ("Shallot", "DicedShallot"),
@@ -76,7 +77,17 @@ struct PrepView: View {
                 .resizable()
                 .scaledToFit()
                 .offset(x: 10, y: 20)
-            
+            if showEnd {
+                Text("You're done prepping!")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.black)
+                    .padding()
+                    .background(Color.white.opacity(0.9))
+                    .cornerRadius(12)
+                    .offset(y: -100)
+                    .transition(.scale.combined(with: .opacity))
+            }
             Image ("Knife")
                 .resizable()
                 .scaledToFit()
@@ -98,13 +109,13 @@ struct PrepView: View {
     func startKnifeMovement() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { _ in
             if movingRight {
-                knifeX += 2
+                knifeX += 4
                 
                 if knifeX >= 150 {
                     movingRight = false
                 }
             } else {
-                knifeX -= 2
+                knifeX -= 4
                 
                 if knifeX <= -150 {
                     movingRight = true
@@ -119,6 +130,7 @@ struct PrepView: View {
         if distance < 100 {
             timer?.invalidate()
             points += 5
+            
 
             withAnimation(.easeIn(duration: 0.3)) {
                 knifeY += 100
@@ -126,6 +138,9 @@ struct PrepView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 isDiced = true
 
+                if currentIngredient == ingredients.count - 1 {
+                        showEnd = true
+                    }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     if currentIngredient < ingredients.count - 1 {
                         currentIngredient += 1

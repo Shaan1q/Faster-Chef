@@ -14,19 +14,16 @@ struct GameView: View {
                 NavigationLink("Chapter 1: The Final Round") {
                     GameStart()
                 }
-                NavigationLink("Chapter 2: Super market Survivor") {
-                    MarketView()
-                }
-                NavigationLink("Chapter 3:") {
+                NavigationLink("Chapter 2: Prep") {
                     PrepView()
                 }
-                NavigationLink("Chapter 4:") {
+                NavigationLink("Chapter 3: Cook") {
                     CookView()
                 }
-                NavigationLink("Chapter 5:") {
+                NavigationLink("Chapter 4: Plate") {
                     PlatingView()
                 }
-                NavigationLink("Chapter 6: The Final Results") {
+                NavigationLink("Chapter 5: The Final Results") {
                     GameEnd()
                 }
             }
