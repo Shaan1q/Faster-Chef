@@ -26,7 +26,6 @@ struct PrepView: View {
     @State private var isDiced = false
     
     var body: some View {
-<<<<<<< HEAD
         ZStack{
             Image ("TableBg")
                 .resizable()
@@ -92,9 +91,8 @@ struct PrepView: View {
         }
         
        
-=======
+
         Text("Prep")
->>>>>>> main
     }
 
     func startKnifeMovement() {
