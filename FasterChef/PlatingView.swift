@@ -9,10 +9,22 @@ import SwiftUI
 
 struct PlatingView: View {
     var body: some View {
-        Text("Plating")
+        ZStack{
+            Image("tablee")
+                .resizable()
+                .frame(width: 600, height: 1000)
+            Score()
+            BWellington()
+            Plate()
+            Bplate()
+            Wellingotn()
+           
+        }
     }
 }
 
+
 #Preview {
     PlatingView()
+        .environment(GameModel())
 }
