@@ -25,7 +25,7 @@ struct Plate: View {
             }
             .onLongPressGesture(minimumDuration: 1.0){
                 withAnimation(.linear(duration: 0.5)){
-                    model.Tapped(type: Shapess.plate, )
+                model.Tapped(type: .plate)
                     
                 }
             }
@@ -41,7 +41,7 @@ struct Plate: View {
                     .onEnded{ dropLocation in
                         let centered = centerShape(position: dropLocation.location)
                         withAnimation(.linear(duration: 0.5)){
-                            model.droppedShape(type: .plate, location: centered, )
+                            model.droppedShape(type: .plate, location: centered)
                         }
                         
                     }

@@ -11,6 +11,7 @@ import SwiftUI
 struct FasterChefApp: App {
 
     @State private var networkClient = NetworkClient()
+    @State private var gameModel = GameModel()
 
     @StateObject private var favoritesManager = FavoritesManager()
 
@@ -20,6 +21,7 @@ struct FasterChefApp: App {
 
             HomePage()
                 .environment(networkClient)
+                .environment(gameModel)
                 .environmentObject(favoritesManager)
         }
     }
